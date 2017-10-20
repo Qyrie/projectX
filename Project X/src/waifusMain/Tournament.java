@@ -41,6 +41,7 @@ public class Tournament {
 				waifuCount = userInput.nextInt();
 				System.out.println("Please input the number of winners per group:");
 				winners = userInput.nextInt();
+				List<String> lines = new ArrayList<String>();
 				
 				for (int i = 0; i<numGroups; i++) {
 					group = new Group(waifuCount,winners);
@@ -51,9 +52,7 @@ public class Tournament {
 						String line = null;
 						
 						for (int k = 0; k<fileIndex; k++) {
-							reader.mark(0);
 							line = reader.readLine();
-							reader.reset();
 						}
 						
 						waifu = new Competitor(line, "FEH");
@@ -67,18 +66,15 @@ public class Tournament {
 						index = userInput.nextInt();
 						group.eliminate(index);
 					}
-					List<String> lines = new ArrayList<String>();
-					lines = group.listWinners();
-					Files.write(file, lines, Charset.forName("UTF-8"));
+					lines.addAll(group.listWinners());
 				}
+				Files.write(file, lines, Charset.forName("UTF-8"));
 				System.out.println("Round over! Awaiting new command:");
 				input = userInput.nextLine();
 				if (input == "exit") {
 					userInput.close();
 					reader.close();
 					break;
-				} else {
-					
 				}
 			} catch(IOException e) {
 				e.printStackTrace();
