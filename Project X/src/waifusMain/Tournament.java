@@ -50,11 +50,11 @@ public class Tournament {
 						System.out.println("Please enter a contestant number:");
 						fileIndex = userInput.nextInt();
 						String line = null;
-						
+						reader.mark(1);
 						for (int k = 0; k<fileIndex; k++) {
 							line = reader.readLine();
 						}
-						
+						reader.reset();
 						waifu = new Competitor(line, "FEH");
 						group.addWaifu(waifu);
 					}
